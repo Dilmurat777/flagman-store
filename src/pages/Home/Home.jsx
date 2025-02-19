@@ -26,9 +26,7 @@ const Home = () => {
       /></div>}>
         <ApiUrl />
       </Suspense>
-      {/* <Suspense fallback={<h2 className='home__loading'>Loading...</h2>}>
-        <ApiUrl />
-      </Suspense> */}
+    
     </div>
   );
 };

@@ -43,7 +43,7 @@ a {
 	cursor:pointer;
 	border-radius: 5px;
 	color: #fff;
-	background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+	background: #007bff;
 }
 
 .form__password {
@@ -56,4 +56,16 @@ a {
 	right: 5px;
 	cursor: pointer;
 	z-index: 10;
+}
+
+.form__btn-link {
+	
+		display: inline-block;
+		padding: 10px 20px;
+		background-color: #007bff;
+		color: white;
+		text-align: center;
+		text-decoration: none;
+		border-radius: 5px;
+	  
 }

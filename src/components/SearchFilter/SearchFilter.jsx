@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { CustomContext } from '../../Context/Context';
+import { CustomContext } from '../../utils/Context';
 
 const SearchFilter = () => {
 	const { handleSubmit, product, startsForm } = useContext(CustomContext);

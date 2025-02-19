@@ -3,38 +3,32 @@ import { Link, useNavigate } from 'react-router-dom';
 import { BsPencil } from 'react-icons/bs';
 import { IoEyeSharp } from 'react-icons/io5';
 import { HiMiniEyeSlash } from 'react-icons/hi2';
+import { auth } from '../../components/firebase/firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import './style.css';
-import axios from 'axios';
-import { CustomContext } from '../../Context/Context';
+import { CustomContext } from '../../utils/Context';
 
 const Register = () => {
   const [status, setStatus] = useState(false);
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [eye, setEye] = useState(false);
 
   const { user, setUser } = useContext(CustomContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const registerUser = (e) => {
+  const registerUser = async (e) => {
     e.preventDefault();
 
-    let newUser = {
-      email,
-      password: e.target[0].value,
-    };
-    axios
-      .post('https://67ad82eb3f5a4e1477dde408.mockapi.io/test1/users', newUser)
-		.then(({ data }) => {
-		  console.log(data);
-		  
-		  setUser({
-			...data
-		  });
-		  localStorage.setItem('user', JSON.stringify({...data}))
-		  
-		navigate('/')
-	  })
-      .catch((err) => console.log(err.message));
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      console.log('account created');
+      localStorage.setItem('user', JSON.stringify(userCredential, user));
+      setUser(userCredential.user);
+      navigate('/');
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -57,6 +51,7 @@ const Register = () => {
                 type={eye ? 'text' : 'password'}
                 className="form__field"
                 placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
               />
 
               <span className="form__eye" onClick={() => setEye((prev) => !prev)}>

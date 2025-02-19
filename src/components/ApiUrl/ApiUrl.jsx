@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import './style.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { CustomContext } from '../../Context/Context';
+import { CustomContext } from '../../utils/Context';
 import SearchFilter from '../SearchFilter/SearchFilter';
 
 const ApiUrl = () => {
@@ -10,7 +10,7 @@ const ApiUrl = () => {
 
   const navigate = useNavigate();
   const goToSinglePage = () => navigate('/contacts');
-  const goToRegister = () => navigate('/register');
+  const goToRegister = () => navigate('/login');
 
   if(error) {
     return <h2 className='error'>{ error }</h2>
