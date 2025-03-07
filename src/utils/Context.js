@@ -10,6 +10,7 @@ export const Context = (props) => {
   const product = searchParams.get('title', 'name') || '';
   const latest = searchParams.has('latest');
   const startsForm = latest ? 10 : 1;
+  const [categoryId, setCategory] = useState(0);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,8 +31,11 @@ export const Context = (props) => {
   //get item------------------------------------
   const [cardItem, setCardItem] = useState([]);
   const [error, setError] = useState(null);
+
+  const category = `${categoryId !== 0 ? `?categoryId=${categoryId}` : ''}`
+
   useEffect(() => {
-    const apiUrl = `https://api.escuelajs.co/api/v1/products`;
+    const apiUrl = `https://api.escuelajs.co/api/v1/products${category}`;
 
     axios
       .get(apiUrl)
@@ -43,7 +47,7 @@ export const Context = (props) => {
         console.log('Error fetching data:', error);
         setError('Page not founded error 404');
       });
-  }, []);
+  }, [categoryId]);
 
   const [user, setUser] = useState({
     email: '',
@@ -64,6 +68,8 @@ export const Context = (props) => {
     handleSubmit,
     startsForm,
     error,
+    categoryId,
+    setCategory
   };
 
   return <CustomContext.Provider value={value}>{props.children}</CustomContext.Provider>;
